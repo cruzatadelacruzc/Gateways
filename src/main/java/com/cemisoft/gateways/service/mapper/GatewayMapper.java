@@ -16,6 +16,8 @@ public interface GatewayMapper extends EntityMapper<GatewayDTO, Gateway> {
     @Mapping(target = "removePeripheral", ignore = true)
     Gateway toEntity(GatewayDTO gatewayDTO);
 
+    GatewayDTO toDto(Gateway gateway);
+
     default Gateway fromId(Long id) {
         if (id == null) {
             return null;

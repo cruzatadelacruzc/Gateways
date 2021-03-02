@@ -1,10 +1,35 @@
 package com.cemisoft.gateways.service.dto;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class GatewayDTO implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private Long id;
+
+    private String serialNumber;
+
+    private String name;
+
+    private String address;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GatewayDTO)) return false;
+        GatewayDTO that = (GatewayDTO) o;
+        return getId().equals(that.getId()) &&
+                Objects.equals(getSerialNumber(), that.getSerialNumber()) &&
+                Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getAddress(), that.getAddress());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 
     public Long getId() {
         return id;
@@ -14,23 +39,27 @@ public class GatewayDTO implements Serializable {
         this.id = id;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof GatewayDTO)) return false;
-        GatewayDTO that = (GatewayDTO) o;
-        return getId().equals(that.getId());
+    public String getSerialNumber() {
+        return serialNumber;
     }
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
-    @Override
-    public String toString() {
-        return "GatewayDTO{" +
-                "id=" + id +
-                '}';
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

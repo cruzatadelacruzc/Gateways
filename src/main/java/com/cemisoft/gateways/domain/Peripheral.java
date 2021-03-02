@@ -10,15 +10,15 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-enum Status {
-    ONLINE, OFFLINE
-}
-
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Peripheral implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    private enum Status {
+        ONLINE, OFFLINE
+    }
 
     @Id
     @GeneratedValue(generator = "UUID")

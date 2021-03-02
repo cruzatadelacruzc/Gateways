@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 public class GatewayService {
@@ -37,5 +39,14 @@ public class GatewayService {
         log.debug("Request to get all Gateways");
         return gatewayRepository.findAll(pageable)
                 .map(gatewayMapper::toDto);
+    }
+
+    public Optional<GatewayDTO> findOne(Long id) {
+        return this.gatewayRepository.findById(id)
+                .map(gatewayMapper::toDto);
+    }
+
+    public void delete(Long id) {
+        this.gatewayRepository.deleteById(id);
     }
 }
