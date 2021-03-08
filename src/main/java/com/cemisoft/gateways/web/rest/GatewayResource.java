@@ -115,4 +115,9 @@ public class GatewayResource {
         gatewayService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public final ResponseEntity<Exception> handleAllExceptions(RuntimeException ex) {
+        return new ResponseEntity<>(ex, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
