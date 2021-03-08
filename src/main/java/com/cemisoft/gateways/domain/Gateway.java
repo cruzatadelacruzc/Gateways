@@ -3,7 +3,7 @@ package com.cemisoft.gateways.domain;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.Objects;
 
 /**
  * A client
@@ -24,25 +24,6 @@ public class Gateway implements Serializable {
 
     @Pattern(regexp = "^([0-1]?\\d?\\d|2[0-4]\\d|25[0-5])(\\.([0-1]?\\d?\\d|2[0-4]\\d|25[0-5])){3}$")
     private String address;
-
-    @OneToMany(mappedBy = "gateway")
-    private Set<Peripheral> peripherals;
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "Gateway{" +
-                "id=" + id +
-                ", serialNumber='" + serialNumber + '\'' +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", peripherals=" + peripherals +
-                '}';
-    }
 
     public Long getId() {
         return id;
@@ -76,23 +57,29 @@ public class Gateway implements Serializable {
         this.address = address;
     }
 
-    public Set<Peripheral> getPeripherals() {
-        return peripherals;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Gateway)) return false;
+        Gateway gateway = (Gateway) o;
+        return Objects.equals(getSerialNumber(), gateway.getSerialNumber()) &&
+                Objects.equals(getName(), gateway.getName()) &&
+                Objects.equals(getAddress(), gateway.getAddress());
     }
 
-    public void setPeripherals(Set<Peripheral> peripherals) {
-        this.peripherals = peripherals;
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSerialNumber(), getName(), getAddress());
     }
 
-    public Gateway addPeripheral(Peripheral peripheral) {
-        this.peripherals.add(peripheral);
-        peripheral.setGateway(this);
-        return this;
-    }
-
-    public Gateway removePeripheral(Peripheral peripheral) {
-        this.peripherals.remove(peripheral);
-        peripheral.setGateway(null);
-        return this;
+    @Override
+    public String toString() {
+        return "Gateway{" +
+                "id=" + id +
+                ", serialNumber='" + serialNumber + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +/*
+                ", peripherals=" + peripherals +*/
+                '}';
     }
 }

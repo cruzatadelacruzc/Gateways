@@ -1,13 +1,11 @@
 package com.cemisoft.gateways.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -31,10 +29,11 @@ public class Peripheral implements Serializable {
 
     @CreatedDate
     private Long createdDate;
+
     @Enumerated(EnumType.STRING)
     private Status status;
-    @ManyToOne
-    @JsonIgnoreProperties(value = "peripherals", allowSetters = true)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Gateway gateway;
 
     public static long getSerialVersionUID() {
@@ -48,20 +47,19 @@ public class Peripheral implements Serializable {
                 ", vendor='" + vendor + '\'' +
                 ", createdDate=" + createdDate +
                 ", status=" + status +
-                ", gateway=" + gateway +
                 '}';
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Peripheral)) return false;
-        Peripheral that = (Peripheral) o;
-        return getId().equals(that.getId()) &&
-                Objects.equals(getVendor(), that.getVendor()) &&
-                Objects.equals(getCreatedDate(), that.getCreatedDate()) &&
-                getStatus() == that.getStatus() &&
-                Objects.equals(getGateway(), that.getGateway());
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Peripheral other = (Peripheral) obj;
+        return id != null && id.equals(other.getId());
     }
 
     @Override
