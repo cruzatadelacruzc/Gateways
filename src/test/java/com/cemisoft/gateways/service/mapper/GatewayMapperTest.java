@@ -1,7 +1,5 @@
-package com.cemisoft.gateways.service.dto;
+package com.cemisoft.gateways.service.mapper;
 
-import com.cemisoft.gateways.service.mapper.GatewayMapper;
-import com.cemisoft.gateways.service.mapper.GatewayMapperImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,8 +15,8 @@ public class GatewayMapperTest {
     }
 
     @Test
-    @DisplayName("Test Gateway From Id")
-    void testGatewayFromId() {
+    @DisplayName("should Mapped Entity id be Equal to given Id")
+    void shouldMappedEntityIdBeEqualToGivenId() throws Exception {
         Long id = 1L;
         Assertions.assertEquals(gatewayMapper.fromId(id).getId(), id);
         Assertions.assertNull(gatewayMapper.fromId(null));

@@ -3,3 +3,5 @@ spring:
     console:
       settings:
         web-allow-others: true
+  messages:
+    basename: i18n/messages

@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+#personal profile configurations
+**/application-michel.yml
