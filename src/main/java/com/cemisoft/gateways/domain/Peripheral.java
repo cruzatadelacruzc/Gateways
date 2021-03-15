@@ -1,11 +1,13 @@
 package com.cemisoft.gateways.domain;
 
+import com.cemisoft.gateways.domain.enumeration.Status;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -14,9 +16,9 @@ public class Peripheral implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private enum Status {
+/*    private enum Status {
         ONLINE, OFFLINE
-    }
+    }*/
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -30,7 +32,7 @@ public class Peripheral implements Serializable {
     @CreatedDate
     private Long createdDate;
 
-    @Enumerated(EnumType.STRING)
+    /*    @Enumerated(EnumType.STRING)*/
     private Status status;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -51,20 +53,19 @@ public class Peripheral implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Peripheral other = (Peripheral) obj;
-        return id != null && id.equals(other.getId());
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Peripheral)) return false;
+        Peripheral that = (Peripheral) o;
+        return Objects.equals(getVendor(), that.getVendor()) &&
+                Objects.equals(getCreatedDate(), that.getCreatedDate()) &&
+                getStatus() == that.getStatus() &&
+                Objects.equals(getGateway(), that.getGateway());
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(getVendor(), getCreatedDate(), getStatus(), getGateway());
     }
 
     public UUID getId() {

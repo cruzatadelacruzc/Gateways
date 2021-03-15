@@ -20,15 +20,14 @@ public class GatewayDTO implements Serializable {
         if (this == o) return true;
         if (!(o instanceof GatewayDTO)) return false;
         GatewayDTO that = (GatewayDTO) o;
-        return getId().equals(that.getId()) &&
-                Objects.equals(getSerialNumber(), that.getSerialNumber()) &&
+        return Objects.equals(getSerialNumber(), that.getSerialNumber()) &&
                 Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getAddress(), that.getAddress());
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(getSerialNumber(), getName(), getAddress());
     }
 
     public Long getId() {

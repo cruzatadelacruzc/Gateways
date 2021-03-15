@@ -1,4 +1,9 @@
 package com.cemisoft.gateways.repository;
 
-public interface PeripheralRepository {
+import com.cemisoft.gateways.domain.Peripheral;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.UUID;
+
+public interface PeripheralRepository extends JpaRepository<Peripheral, UUID> {
 }

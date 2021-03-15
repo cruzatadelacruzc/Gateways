@@ -4,7 +4,6 @@ package com.cemisoft.gateways.service.mapper;
 import com.cemisoft.gateways.domain.Gateway;
 import com.cemisoft.gateways.service.dto.GatewayDTO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 /**
  * Mapper for the entity {@link Gateway} and its DTO {@link GatewayDTO}.
@@ -12,8 +11,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface GatewayMapper extends EntityMapper<GatewayDTO, Gateway> {
 
-    @Mapping(target = "peripherals", ignore = true)
-    @Mapping(target = "removePeripheral", ignore = true)
     Gateway toEntity(GatewayDTO gatewayDTO);
 
     GatewayDTO toDto(Gateway gateway);

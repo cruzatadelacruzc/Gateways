@@ -1,20 +1,19 @@
-package com.cemisoft.gateways.domain;
+package com.cemisoft.gateways.service.dto;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class GatewayTest {
-
+public class GatewayDTOTest {
     @Test
-    @DisplayName("Equals Verifier")
-    void equalsVerifier() {
-        EqualsVerifier.forClass(Gateway.class)
-                .suppress(Warning.ALL_FIELDS_SHOULD_BE_USED)
+    @DisplayName("GatewayDTO Equals Verifier")
+    void dtoEqualsVerifier() throws Exception {
+        EqualsVerifier.forClass(GatewayDTO.class)
                 .suppress(Warning.STRICT_INHERITANCE)
                 .suppress(Warning.NONFINAL_FIELDS)
                 .suppress(Warning.INHERITED_DIRECTLY_FROM_OBJECT)
+                .suppress(Warning.ALL_FIELDS_SHOULD_BE_USED)
                 .verify();
     }
 }
