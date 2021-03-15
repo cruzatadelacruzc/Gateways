@@ -32,7 +32,6 @@ public class Peripheral implements Serializable {
     @CreatedDate
     private Long createdDate;
 
-    /*    @Enumerated(EnumType.STRING)*/
     private Status status;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -84,6 +83,11 @@ public class Peripheral implements Serializable {
         this.vendor = vendor;
     }
 
+    public Peripheral vendor(String vendor) {
+        this.vendor = vendor;
+        return this;
+    }
+
     public Long getCreatedDate() {
         return createdDate;
     }
@@ -100,11 +104,21 @@ public class Peripheral implements Serializable {
         this.status = status;
     }
 
+    public Peripheral status(Status status) {
+        this.status = status;
+        return this;
+    }
+
     public Gateway getGateway() {
         return gateway;
     }
 
     public void setGateway(Gateway gateway) {
         this.gateway = gateway;
+    }
+
+    public Peripheral gateway(Gateway gateway) {
+        this.gateway = gateway;
+        return this;
     }
 }

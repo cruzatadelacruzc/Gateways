@@ -41,6 +41,11 @@ public class Gateway implements Serializable {
         this.serialNumber = serialNumber;
     }
 
+    public Gateway serialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+        return this;
+    }
+
     public String getName() {
         return name;
     }
@@ -49,12 +54,22 @@ public class Gateway implements Serializable {
         this.name = name;
     }
 
+    public Gateway name(String name) {
+        this.name = name;
+        return this;
+    }
+
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Gateway address(String address) {
+        this.address = address;
+        return this;
     }
 
     @Override
