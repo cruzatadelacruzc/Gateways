@@ -12,12 +12,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements A
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf()
-                .disable()
-
+        http/*
+                .cors()
+                .and()
                 .headers()
                 .frameOptions()
-                .sameOrigin();
+                .sameOrigin();*/
+
+                .authorizeRequests(authorize -> authorize
+                        .mvcMatchers("/api/gateways/**").permitAll()
+                        .mvcMatchers("/**").authenticated()
+                )
+                .httpBasic();
     }
 }

@@ -23,7 +23,7 @@ import java.util.Optional;
  * REST controller for managing {@link com.cemisoft.gateways.domain.Gateway}.
  */
 @RestController
-@RequestMapping("/api/gateway")
+@RequestMapping("/api/gateways")
 public class GatewayResource {
 
     private static final String ENTITY_NAME = "gateway";
@@ -48,14 +48,14 @@ public class GatewayResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new GatewayDTO
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("")
+    @PostMapping("/")
     public ResponseEntity<GatewayDTO> createGateway(@Valid @RequestBody GatewayDTO gatewayDTO) throws URISyntaxException {
         log.debug("REST request to save Gateway : {}", gatewayDTO);
         if (gatewayDTO.getId() != null) {
             throw new BadRequestAlertException("A new gateway cannot already have an ID", ENTITY_NAME, "idexists");
         }
         GatewayDTO result = gatewayService.save(gatewayDTO);
-        return ResponseEntity.created(new URI("/api/gateway/" + result.getId()))
+        return ResponseEntity.created(new URI("/api/gateways/" + result.getId()))
                 .body(result);
     }
 
