@@ -22,15 +22,16 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Integration tests for the {@link GatewayResource} REST controller.
  */
-@SpringBootTest(classes = GatewaysApplication.class)
 @AutoConfigureMockMvc
 @WithMockUser
+@SpringBootTest(classes = GatewaysApplication.class)
 public class GatewayResourceIT {
 
     private static final String DEFAULT_SERIAL_NUMBER = "AAAAAAAAAA";
@@ -103,7 +104,7 @@ public class GatewayResourceIT {
         int databaseSizeBeforeCreate = gatewayRepository.findAll().size();
         // Create the Gateway
         GatewayDTO gatewayDTO = gatewayMapper.toDto(gateway);
-        restGatewayMockMvc.perform(post("/api/gateways")
+        restGatewayMockMvc.perform(post("/api/gateways").with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtil.convertObjectToJsonBytes(gatewayDTO)))
                 .andExpect(status().isCreated());
@@ -127,7 +128,7 @@ public class GatewayResourceIT {
         GatewayDTO gatewayDTO = gatewayMapper.toDto(gateway);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restGatewayMockMvc.perform(post("/api/gateways")
+        restGatewayMockMvc.perform(post("/api/gateways").with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtil.convertObjectToJsonBytes(gatewayDTO)))
                 .andExpect(status().isBadRequest());
@@ -201,7 +202,7 @@ public class GatewayResourceIT {
                 .status(UPDATED_STATUS)*/;
         GatewayDTO gatewayDTO = gatewayMapper.toDto(updatedGateway);
 
-        restGatewayMockMvc.perform(put("/api/gateways")
+        restGatewayMockMvc.perform(put("/api/gateways").with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtil.convertObjectToJsonBytes(gatewayDTO)))
                 .andExpect(status().isOk());
@@ -226,7 +227,7 @@ public class GatewayResourceIT {
         GatewayDTO gatewayDTO = gatewayMapper.toDto(gateway);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restGatewayMockMvc.perform(put("/api/gateways")
+        restGatewayMockMvc.perform(put("/api/gateways").with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtil.convertObjectToJsonBytes(gatewayDTO)))
                 .andExpect(status().isBadRequest());
@@ -245,7 +246,7 @@ public class GatewayResourceIT {
         int databaseSizeBeforeDelete = gatewayRepository.findAll().size();
 
         // Delete the gateway
-        restGatewayMockMvc.perform(delete("/api/gateways/{id}", gateway.getId())
+        restGatewayMockMvc.perform(delete("/api/gateways/{id}", gateway.getId()).with(csrf())
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
