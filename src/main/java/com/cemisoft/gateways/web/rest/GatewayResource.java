@@ -48,7 +48,7 @@ public class GatewayResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new GatewayDTO
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<GatewayDTO> createGateway(@Valid @RequestBody GatewayDTO gatewayDTO) throws URISyntaxException {
         log.debug("REST request to save Gateway : {}", gatewayDTO);
         if (gatewayDTO.getId() != null) {
